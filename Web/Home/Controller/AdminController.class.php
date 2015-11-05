@@ -33,15 +33,32 @@ class AdminController extends Controller {
         $this->display('index');
     }
 
-    private function _checkUserSession() {
-        $user_id=session('user_id');
-        if(!$user_id) {
-            $this->ajaxReturn('', 1, '登录失效');
-        }
-
-        return $user_id;
+    public function add() {
+        $this->display('add');
     }
 
+    public function addSave() {
+        $Task=D('Admin');
+
+        $data=$Task->create();
+        $oldData=$Task->where(array("name"=>$data['name']))->find();
+        
+        $oldData && $this->ajaxReturn(null, 1, '已经存在该用户!');
+        
+        $data['code'] || $this->ajaxReturn(null, 1, '密码必填!');
+        
+        $data['role_id'] || $this->ajaxReturn(null, 1, '角色未选!');
+        
+        $data || $this->ajaxReturn($data, 1, $Task->getError());
+ 
+        $data['code'] = sha1($data['code'].'_80_80_');
+        $Task->data($data);
+        $result=$data['id']
+            ? $Task->save()
+            : $Task->add();
+
+        $this->ajaxReturn($result);
+    }
 
     public function edit() {
         $id=I('get.id', 0);
@@ -58,7 +75,6 @@ class AdminController extends Controller {
         $Task=D('Admin');
 
         $data=$Task->create();
-
         $data || $this->ajaxReturn($data, 1, $Task->getError());
  
         $data['code'] = sha1($data['code'].'_80_80_');
@@ -73,7 +89,11 @@ class AdminController extends Controller {
     public function del() {
         $id=I('get.id', 0);
         $id || $this->ajaxReturn(null, 1, '#id 为空');
-
+        
+        if ($_SESSION['admin_role'] != 1) {
+             $this->ajaxReturn(null, 1, '无操作权限!');
+        } 
+        
         $result=D('admin')->delete($id);
 
         $this->ajaxReturn(['data'=>$result, 'code'=>$result ? 0 : 1, 'msg'=>'']);
