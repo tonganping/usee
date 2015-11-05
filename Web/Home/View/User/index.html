@@ -1,0 +1,43 @@
+<include file="Public/tpl/left.html" />
+
+<div class="admin_right">
+    <include file="Public/tpl/top_userinfo.html" />
+
+    <div class="data_list_bt">用户列表</div>
+    <table class="data_list" width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <th width="4%">ID</th>
+            <th width="7%">家长</th>
+            <th width="7%">宝贝</th>
+            <th width="5%">关系</th>
+            <th width="10%">手机号</th>
+            <th width="7%">类型</th>
+            <th width="10%">班级</th>
+            <th width="10%">注册时间</th>
+            <th width="12%">open-id</th>
+            <th width="10%">操作</th>
+        </tr>
+        <volist name="data_list" id="data">
+        <tr>
+            <td>{$data.id}</td>
+            <td>{$data.name}</td>
+            <td>{$data.baby_name}</td>
+            <td>{$data.relation}</td>
+            <td>{$data.cell_phone}</td>
+            <td>{$data.type_name}</td>
+            <td>{$data.class_name}</td>
+            <td>{$data.time_in_text}</td>
+            <td>{$data.open_id}</td>
+            <td>
+                <a href="__INDEX__/User/edit/id/{$data.id}">编辑</a>
+                <a href="javascript:;" onclick="Deleter('User', {$data.id});">删除</a>
+            </td>
+        </tr>
+        </volist>
+    </table>
+    <div class="pages">{$pager}</div>
+</div>
+
+
+
+

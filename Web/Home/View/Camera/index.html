@@ -1,0 +1,42 @@
+<include file="Public/tpl/left.html" />
+
+<div class="admin_right">
+    <include file="Public/tpl/top_userinfo.html" />
+
+    <div class="data_list_bt">摄像头及图片资源管理</div>
+
+    <div class="issue_div">
+        <a href="__INDEX__/Camera/edit" class="btn" id="btn_edit">添加</a>
+    </div>
+
+    <table class="data_list" width="100%">
+        <tr>
+            <th width="5%">ID</th>
+            <th width="5%">类型</th>
+            <th width="15%">名称</th>
+            <th width="15%">所属班级</th>
+            <th width="35%">地址</th>
+            <th width="15%">创建时间</th>
+            <th width="10%">操作</th>
+        </tr>
+        <volist name="data_list" id="data">
+        <tr>
+            <td>{$data.id}</td>
+            <td>{$data.type_name}</td>
+            <td>{$data.name}</td>
+            <td>{$data.class_name}</td>
+            <td>{$data.url}</td>
+            <td>{$data.time_in_text}</td>
+            <td>
+                <a href="__INDEX__/Camera/edit/id/{$data.id}">编辑</a>
+                <a href="javascript:;" onclick="Deleter('Camera', {$data.id});">删除</a>
+            </td>
+        </tr>
+        </volist>
+    </table>
+    <div class="pages">{$pager}</div>
+</div>
+
+
+
+

@@ -1,0 +1,12 @@
+<div class="admin_left">
+    <a href="__INDEX__" class="logo"><img src="__IMAGE__/logo.jpg" width="100" height="100"></a>
+    <ul class="submenu">
+        <volist name="Think.config.MENU_INFO" id="U">
+            <label>
+                <?php  if (in_array($_SESSION['admin_role'],$U['role'])){ ?> 
+                <li class="cur"  ><a href="__INDEX__{$key}"><b class="ico0"></b><span>{$U.name}</span></a></li>
+                <?php }?>
+            </label>
+        </volist>
+    </ul>
+</div>

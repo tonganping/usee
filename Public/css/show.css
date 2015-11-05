@@ -1,0 +1,109 @@
+.show_bg{
+    height:20em;
+    background: #7bc3d1;
+}
+.show_layout{
+    width: 80%;
+    min-height: 30em;
+    position: absolute;
+    left: 40%;
+    top: 15%;
+    margin: -10em 0 0 -30%;
+    background: #fff;
+}
+.show_system_name{
+    padding-top: 15%;
+    text-align: center;
+    font-size: 2rem;
+    color: #7bc3d1;
+}
+.show_resource{
+    width: 100%;
+    padding-top: 10%;
+}
+.show_img{
+    width: 100%;
+    text-align: center;
+    padding: 2% 0 2% 0;
+}
+.show_img img{
+    width:95%;
+}
+.show_vadio{
+    width: 100%;
+    text-align: center;
+    padding: 2% 0 2% 0;
+}
+.show_vadio video{
+    width:95%;
+}
+#regist_form{ 
+    width: 95%; 
+    margin: 2em auto 0; 
+}
+.regist_tab tr td{
+    padding-top: 0.5em;
+    font-size:1.3rem;
+    vertical-align: top;
+}
+.regist_tab tr{
+    min-height:4em;
+}
+.show_tip{
+    width: 9em;
+}
+.regist_btn{
+    display: block;
+    width: 90%;
+    height: 2em;
+    margin-top: 1em;
+    line-height: 2em;
+    text-align: center;
+    font-size: 1.4rem;
+    color: #fff;
+    margin-left:1em;
+    background: #7bc3d1;
+    border-radius: 2em;
+}
+.btn_go{
+    display: block;
+    width: 90%;
+    height: 2em;
+    margin-top: 1em;
+    line-height: 2em;
+    text-align: center;
+    font-size: 1.4rem;
+    color: #000;
+    margin-left:1em;
+    background: #ccc;
+    border-radius: 2em;
+}
+
+.show_input{
+    text-align: center;
+    border-bottom: 0.1em solid #E8E7E7;
+    font-size: 1.3rem;
+}
+.regist_select{
+    min-height: 1.5em;
+    width: 50%;
+    font-size: 1.3rem;
+}
+.regist_layout{
+    width: 95%;
+    min-height: 30em;
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    margin: -10em 0 0 -37%;
+    background: #fff;
+}
+.show_relation{
+    vertical-align: top;
+    font-size: 1.3rem;
+    min-height: 1.4em;
+}
+.show_relation .radio{
+    font-size: 1.3rem;
+    min-height: 1.3em;
+}

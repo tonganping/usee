@@ -1,0 +1,24 @@
+<!-- <div class="show_bg"></div> -->
+<div class="show_layout"> 	
+    <div class="show_system_name">{$class_name}</div>
+    <div class="show_resource">
+        <div class="show_img">
+            <notempty name="imgResource">
+                <volist name="imgResource" id="img">
+                    <img src="{$img.url}">
+                </volist>
+            </notempty>
+        </div>
+        <div class="show_vadio">
+            <notempty name="camResource">
+                <volist name="camResource" id="cam">
+                    <video controls>
+                        <source src="{$cam.url}" type="application/vnd.apple.mpegurl" />
+                        <p class="warning">Your browser does not support HTML5 video.</p>
+                    </video>
+                </volist>
+            </notempty>
+        </div>
+    </div>
+    <div class="record">Copyright © 有限公司</div>
+</div>
