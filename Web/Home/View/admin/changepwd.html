@@ -13,12 +13,15 @@
                     {$data.name}
                 </td>
             </tr>
+            <?php if ($data['role_id'] == 1){ ?>
             <tr>
                 <td width="80">旧密码</td>
                 <td class="issue_td">
                     <input class="name" type="password" name="oldpwd" value="" />
                 </td>
             </tr>
+            <?php } ?>
+            
             <tr>
                 <td>新密码</td>
                 <td class="issue_td">

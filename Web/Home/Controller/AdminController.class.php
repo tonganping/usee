@@ -128,10 +128,11 @@ class AdminController extends Controller {
         $data=$Task->getById($id);
         $data || $this->ajaxReturn($data, 1, $Task->getError());
         
-        if ($data['code'] != sha1($pwd.'_80_80_')) {
-            $this->ajaxReturn($data, 1, '旧密码不匹配!');
+        if ($_SESSION['admin_role'] != 1) {
+            if ($data['code'] != sha1($pwd.'_80_80_')) {
+                $this->ajaxReturn($data, 1, '旧密码不匹配!');
+            }
         }
-        
         $data['code'] = sha1($code.'_80_80_');
         $Task->data($data);
         $result=$data['id']
