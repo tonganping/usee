@@ -93,6 +93,13 @@ class AdminController extends Controller {
         if ($_SESSION['admin_role'] != 1) {
              $this->ajaxReturn(null, 1, '无操作权限!');
         } 
+        if ($id == 1) {
+             $this->ajaxReturn(null, 1, '#无操作权限!');
+        }
+        
+        if ($id == $_SESSION['admin_id']) {
+             $this->ajaxReturn(null, 1, '#不能删除自己啊!');
+        }
         
         $result=D('admin')->delete($id);
 
@@ -118,11 +125,7 @@ class AdminController extends Controller {
         
         $code=I('post.code', 0);
         $code || $this->ajaxReturn(null, 1, '#密码为空');
-        
-        if ($code != $pwd) {
-            
-        }
-        
+         
         $Task=D('admin');
 
         $data=$Task->getById($id);
