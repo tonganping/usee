@@ -13,7 +13,7 @@ class CameraController extends Controller {
         // 筛选条件
         $condition=[];
 
-        $data=$Task->pager($condition, $this->indexPageSize, $pagerShow)->order(['class_id'=>'asc'])->select();
+        $data=$Task->pager($condition, $this->indexPageSize, $pagerShow)->order(['id'=>'desc'])->select();
         if($data) {
             $ClassList=D('class')->GetList('list');
             $Types=C('CAMERA_TYPES');
@@ -40,6 +40,9 @@ class CameraController extends Controller {
 
         // 班级
         $this->assign('class_list', D('class')->GetList());
+        
+        // 资源
+        $this->assign('source_list', D('source')->GetList());
 
         $this->display('edit');
     }
@@ -52,11 +55,21 @@ class CameraController extends Controller {
         $data || $this->ajaxReturn($data, 1, $Task->getError());
 
         $data['id'] || $data['time_in']=NOW;
-        $Task->data($data);
-        $result=$data['id']
-            ? $Task->save()
-            : $Task->add();
-
+        
+        $sourceId=I('post.source_id', 0);
+                
+        $sourceInfo = D('source')->getById($sourceId);
+        $data['url'] = $sourceInfo['url'];
+        $data['type'] = $sourceInfo['type'];
+        
+        if (empty($data['id'])) {
+            unset($data['id']);
+            $Task->data($data);
+            $result = $Task->add();
+        } else {
+            $Task->data($data);
+            $result = $Task->save();
+        }
         $this->ajaxReturn($result);
     }
 

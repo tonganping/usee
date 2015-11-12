@@ -57,7 +57,8 @@ return array(
         '/Admin/index/' => ['role'=> [1,2], 'name'=> '帐号管理', 'ico0' => true],
         '/User/index/' => ['role'=>  [1,2], 'name'=> '用户管理'],
         '/Class/index/' => ['role'=> [1,2], 'name'=> '班级管理'],
-        '/Camera/index/' => ['role'=>[1,2], 'name'=> '资源管理'],
+        '/Source/index/' => ['role'=>[1,2], 'name'=> '资源管理'],
+        '/Camera/index/' => ['role'=>[1,2], 'name'=> '班级资源管理'],
     ],
     
     'CAMERA_TYPES'  =>[
