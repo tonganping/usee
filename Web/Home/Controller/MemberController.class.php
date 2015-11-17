@@ -21,7 +21,7 @@ class MemberController extends Controller{
             $endHRestTime = strtotime($restTimes['end_time']);
             $now = time();
             if ($now >= $startHRestTime && $now <= $endHRestTime) {
-                redirect("/public/p/rest.png");
+                redirect("/Public/p/rest.png");
             }
         }
                 
