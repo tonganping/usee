@@ -13,7 +13,18 @@ class MemberController extends Controller{
 		if(empty($user)){
 			$this->redirect('Member/reg');
 		}
-
+                
+       $restTime = D('conf')->find(array('key'=>'rest_time'));
+        if (!empty($restTime['val'])) {
+            $restTimes = json_decode($restTime['val'],true);
+            $startHRestTime = strtotime($restTimes['start_time']);
+            $endHRestTime = strtotime($restTimes['end_time']);
+            $now = time();
+            if ($now >= $startHRestTime && $now <= $endHRestTime) {
+                redirect("/public/p/rest.png");
+            }
+        }
+                
         $this->getShowInfo($user);
 		$this->display();
 	}

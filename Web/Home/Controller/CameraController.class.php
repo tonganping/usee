@@ -35,6 +35,7 @@ class CameraController extends Controller {
         $id=I('get.id', 0);
         if($id) {
             $data=D('camera')->getById($id);
+            $data['sourceIds'] = $data['source_id'];
             $this->assign('data', $data);
         }
 
@@ -56,21 +57,26 @@ class CameraController extends Controller {
 
         $data['id'] || $data['time_in']=NOW;
         
-        $sourceId=I('post.source_id', 0);
-                
-        $sourceInfo = D('source')->getById($sourceId);
-        $data['url'] = $sourceInfo['url'];
-        $data['type'] = $sourceInfo['type'];
+        $sourceIds = I('post.sourceIds', 0);
         
-        if (empty($data['id'])) {
-            unset($data['id']);
-            $Task->data($data);
-            $result = $Task->add();
-        } else {
-            $Task->data($data);
-            $result = $Task->save();
+        $sourceIds || $this->ajaxReturn($data, 1, '无效的资源ID !');
+        $sourceIds = explode(",", trim($sourceIds));
+        foreach ($sourceIds as $sourceId) {            
+            $sourceInfo = D('source')->getById($sourceId);
+            $data['url'] = $sourceInfo['url'];
+            $data['type'] = $sourceInfo['type'];
+            $data['source_id'] = $sourceId;
+            if (empty($data['id'])) {
+                unset($data['id']);
+                $Task->data($data);
+                $Task->add();
+            } else {
+                $Task->data($data);
+                $Task->save();
+            }
         }
-        $this->ajaxReturn($result);
+                
+        $this->ajaxReturn(1);
     }
 
     public function del() {
