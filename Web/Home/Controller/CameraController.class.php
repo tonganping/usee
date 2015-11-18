@@ -60,7 +60,6 @@ class CameraController extends Controller {
         $sourceIds = I('post.sourceIds', 0);
         
         $sourceIds || $this->ajaxReturn($data, 1, '无效的资源ID !');
-        $sourceIds = explode(",", trim($sourceIds));
         foreach ($sourceIds as $sourceId) {            
             $sourceInfo = D('source')->getById($sourceId);
             $data['url'] = $sourceInfo['url'];

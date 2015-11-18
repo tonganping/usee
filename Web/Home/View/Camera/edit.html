@@ -1,4 +1,4 @@
-
+   
 <include file="Public/tpl/left.html" />
 <div class="admin_right">
     <include file="Public/tpl/top_userinfo.html" />
@@ -22,18 +22,20 @@
             </tr>
             
             <tr>
-                <td>资源ID</td>
+                <td>资源&nbsp;&nbsp;</td>
                 <td>
-                    <input class="name" type="text" name="sourceIds" value="{$data.sourceIds}" />
-                    <!--
-                    <select name="source_id">
+                    <select name="sourceIds[]">
                         <option value="0">请选择</option>
                         <volist name="source_list" id="source">
                             <option value="{$source.id}"<eq name="source.id" value="$data.source_id"> selected="selected"</eq>>{$source.name}</option>
                         </volist>
-                    </select> -->
+                    </select> 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="addSource"  onclick="addSource(this)" >+</span>&nbsp;&nbsp;
+                    <span id="delSource" onclick="removeSource(this)">-</span>
+                </td>
             </tr>
-            
+             
             
             
              
@@ -51,6 +53,14 @@
 
 <load href="__JS__/jq/form.js" />
 <script type="text/javascript">
+    function addSource(obj){
+        var trs = '<tr><td>资源&nbsp;&nbsp;</td><td><select name="sourceIds[]"><option value="0">请选择</option><volist name="source_list" id="source"><option value="{$source.id}"<eq name="source.id" value="$data.source_id"> selected="selected"</eq>>{$source.name}</option></volist></select> &nbsp;&nbsp;&nbsp;&nbsp;<span id="addSource" onclick="addSource(this)" >+</span>&nbsp;&nbsp;<span id="delSource" onclick="removeSource(this)">-</span></td></tr>';
+        $(obj).parent().parent().after(trs);
+    }
+    function removeSource(obj){
+        
+        $(obj).parent().parent().remove();
+    }
     Poster('camera');
 </script>
 
