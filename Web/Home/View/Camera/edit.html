@@ -20,14 +20,33 @@
                         </volist>
                     </select>
             </tr>
-            
+             <?php if (!empty($data['sourceIds'])) {?>
+            <volist name="data.sourceIds" id="sourceId">
             <tr>
                 <td>资源&nbsp;&nbsp;</td>
                 <td>
                     <select name="sourceIds[]">
                         <option value="0">请选择</option>
                         <volist name="source_list" id="source">
-                            <option value="{$source.id}"<eq name="source.id" value="$data.source_id"> selected="selected"</eq>>{$source.name}</option>
+                            <option value="{$source.id}"<eq name="source.id" value="$sourceId"> selected="selected"</eq>>{$source.name}</option>
+                        </volist>
+                    </select> 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="addSource"  onclick="addSource(this)" >+</span>&nbsp;&nbsp;
+                    <span id="delSource" onclick="removeSource(this)">-</span>
+                </td>
+            </tr>    
+                
+            </volist>
+            
+             <?php } else { ?>
+             <tr>
+                <td>资源&nbsp;&nbsp;</td>
+                <td>
+                    <select name="sourceIds[]">
+                        <option value="0">请选择</option>
+                        <volist name="source_list" id="source">
+                            <option value="{$source.id}" >{$source.name}</option>
                         </volist>
                     </select> 
                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -35,6 +54,8 @@
                     <span id="delSource" onclick="removeSource(this)">-</span>
                 </td>
             </tr>
+             
+             <?php }?>
              
             
             

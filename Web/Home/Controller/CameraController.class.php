@@ -37,6 +37,21 @@ class CameraController extends Controller {
             $data=D('camera')->getById($id);
             $data['sourceIds'] = $data['source_id'];
             $this->assign('data', $data);
+            
+            $cameraData=D('camera_source_relation')->where(array('camera_id'=>$id))->select();
+            $sourceIds = array();
+            $classId   = null;
+            foreach ($cameraData as $key => $value) {
+                if(!in_array($value['source_id'], $sourceIds)) {
+                    $sourceIds[] = $value['source_id'];
+                }
+                $classId = $value['class_id'];
+            }
+            
+            
+            $data['sourceIds'] = $sourceIds;
+            $data['classId'] = $classId;
+            $this->assign('data', $data);
         }
 
         // 班级
@@ -58,21 +73,42 @@ class CameraController extends Controller {
         $data['id'] || $data['time_in']=NOW;
         
         $sourceIds = I('post.sourceIds', 0);
-        
+        $classId = $data['class_id'];
         $sourceIds || $this->ajaxReturn($data, 1, '无效的资源ID !');
-        foreach ($sourceIds as $sourceId) {            
-            $sourceInfo = D('source')->getById($sourceId);
-            $data['url'] = $sourceInfo['url'];
-            $data['type'] = $sourceInfo['type'];
-            $data['source_id'] = $sourceId;
-            if (empty($data['id'])) {
-                unset($data['id']);
-                $Task->data($data);
-                $Task->add();
-            } else {
-                $Task->data($data);
-                $Task->save();
+        if (empty($data['id'])) {
+            unset($data['id']);
+            $Task->data($data);
+            $cameraId = $Task->add();
+            
+            $relationTask = D('camera_source_relation');
+            foreach ($sourceIds as $sourceId) {
+                $relationTask->data(
+                        array(
+                            'camera_id' => $cameraId,
+                            'source_id' => $sourceId,
+                            'class_id'  => $classId,
+                            'time_in'   => NOW
+                        )
+                );
+                $relationTask->add();
             }
+        } else {
+            $Task->data($data);
+            $Task->save();
+            $cameraId = $data['id'];
+            $relationTask = D('camera_source_relation');
+            $relationTask->where(array('camera_id' => $cameraId))->delete();
+            foreach ($sourceIds as $sourceId) {
+                $relationTask->data(
+                        array(
+                            'camera_id' => $cameraId,
+                            'source_id' => $sourceId,
+                            'class_id'  => $classId,
+                            'time_in'   => NOW
+                        )
+                );
+                $relationTask->add();
+            }   
         }
                 
         $this->ajaxReturn(1);
