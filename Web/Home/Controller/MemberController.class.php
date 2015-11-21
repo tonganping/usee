@@ -16,12 +16,14 @@ class MemberController extends Controller{
                 
        $restTime = D('conf')->find(array('key'=>'rest_time'));
         if (!empty($restTime['val'])) {
-            $restTimes = json_decode($restTime['val'],true);
-            $startHRestTime = strtotime($restTimes['start_time']);
-            $endHRestTime = strtotime($restTimes['end_time']);
-            $now = time();
-            if ($now >= $startHRestTime && $now <= $endHRestTime) {
-                redirect("/Public/p/rest.png");
+            $restTimeInfos = json_decode($restTime['val'],true);
+            foreach ($restTimeInfos as $restTimes) {
+                $startHRestTime = strtotime($restTimes['start_time']);
+                $endHRestTime = strtotime($restTimes['end_time']);
+                $now = time();
+                if ($now >= $startHRestTime && $now <= $endHRestTime) {
+                    redirect("/Public/p/rest.png");
+                }     
             }
         }
                 
@@ -116,30 +118,49 @@ class MemberController extends Controller{
     private function getShowInfo($user){
         $class=array();
         switch(intval($user['type'])){
-            case 0:
+            case 0: // 新注册
                 $imgResource=D('camera')->where(['name'=>['like','幼儿园%'], 'type'=>2])->select();
                 $camResource=D('camera')->where(['name'=>['like','幼儿园%'], 'type'=>1])->select();
                 $title='幼儿园照片与实时视频';
                 break;
-            case 1:
+            case 1: // 普通家长
                 $imgResource=D('camera')->where(['name'=>['like','操场%'], 'type'=>2])->select();
                 $camResource=D('camera')->where(['name'=>['like','操场%'], 'type'=>1])->select();
                 $title='操场照片与实时视频';
                 break;
-            default:
+            default: // 会员家长
                 $class=D('class')->find(intval($user['class_id']));
-                $imgResource=D('camera')->where(array(
-                        'class_id'=>intval($class['id']),
-                        'type'=>2
-                    )
-                )->select();
+                $Model = M("camera_source_relation"); // 实例化一个model对象 没有对应任何数据表
+                $imgResource = $Model->join("tbl_source on tbl_camera_source_relation.source_id=tbl_source.id")
+                               ->where(array(
+                                    'class_id'=>intval($class['id']),
+                                    'type'=>2
+                                   )
+                               )->select();
+            
+                
+//                $imgResource=D('camera')->where(array(
+//                        'class_id'=>intval($class['id']),
+//                        'type'=>2
+//                    )
+//                )->select();
 
-                $camResource=D('camera')->where(
-                    array(
-                        'class_id'=>intval($class['id']),
-                        'type'=>1
-                    )
-                )->select();
+                $camResource = $Model->join("tbl_source on tbl_camera_source_relation.source_id=tbl_source.id")
+                 ->where(array(
+                      'class_id'=>intval($class['id']),
+                      'type'=>1
+                     )
+                 )->select();
+            
+  
+//                              
+//                              
+//                $camResource=D('camera')->where(
+//                    array(
+//                        'class_id'=>intval($class['id']),
+//                        'type'=>1
+//                    )
+//                )->select();
                 $title=$class['name'];
                 break;
         }
