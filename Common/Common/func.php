@@ -7,6 +7,37 @@
  */
 namespace Think;
 
+function getSchoolByManager() {
+    $schoolId = !empty($_SESSION['admin_school_id']) ? $_SESSION['admin_school_id'] : null;
+    $schoolInfos = array();
+    if (empty($schoolId)) {
+        $schoolInfoArr = D('school')->select();
+    } else {
+        $schoolInfoArr = D('school')->where(array('id' => $schoolId))->select();
+    }
+    foreach ($schoolInfoArr as $key => $value) {
+        $schoolInfos[$value['id']] = $value;
+    }
+    return $schoolInfos;
+}
+
+function getSchoolIdByUser() {
+    $schoolId = !empty($_SESSION['admin_school_id']) ? $_SESSION['admin_school_id'] : null;
+    return $schoolId;
+}
+
+function getSchoolByUser() {
+    //var_dump($_SESSION['school_id']);
+    $schoolInfos = array();
+    $schoolInfoArr = D('school')->select();
+    foreach ($schoolInfoArr as $key => $value) {
+        $schoolInfos[$value['id']] = $value;
+    }
+    return $schoolInfos;
+}
+
+
+
 function udate($strFormat = 'u', $uTimeStamp = null)
 {
     // If the time wasn't provided then fill it in

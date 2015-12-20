@@ -40,6 +40,7 @@ class IndexController extends Controller {
         session('admin_id', $Admin->id);
         session('admin_role', $Admin->role_id);
         session('admin_name', $Admin->name);
+        session('admin_school_id', $Admin->school_id);
 
         (IS_AJAX || 1) && $this->ajaxReturn($Admin->id);
 

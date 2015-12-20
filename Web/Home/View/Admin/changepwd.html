@@ -13,7 +13,7 @@
                     {$data.name}
                 </td>
             </tr>
-            <?php if ($data['role_id'] == 1){ ?>
+            <?php if ($_SESSION['admin_role'] != 1){ ?>
             <tr>
                 <td width="80">旧密码</td>
                 <td class="issue_td">

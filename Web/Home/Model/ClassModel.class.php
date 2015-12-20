@@ -8,14 +8,20 @@
 
 namespace Home\Model;
 use Think\Model;
-
+use Think;
 class ClassModel extends Model {
     protected $_validate = array(
         array('name','require','班级名称必须！'),
     );
 
     public function GetList($type='all') {
-        $this->order('`order` asc')->where(" name <>'幼儿园' AND name<>'操场'");
+        $school_id = Think\getSchoolIdByUser();
+        $where = " name <>'幼儿园' AND name<>'操场'";
+        if (!empty($school_id)) {
+            $where .= " AND school_id ={$school_id}";
+        }
+                        
+        $this->order('`order` asc')->where($where);
         $data=$type=='all'
             ? $this->select()
             : $this->getField('id,name');

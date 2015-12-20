@@ -1,6 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use Think;
 class CameraController extends Controller {
     private $indexPageSize = 20;
     public function _initialize() {
@@ -12,7 +13,12 @@ class CameraController extends Controller {
 
         // 筛选条件
         $condition=[];
+        $schoolInfos = $tmpSchoolInfos = Think\getSchoolByManager();
+        
+        if (count($tmpSchoolInfos) == 1) {
 
+            $condition['school_id'] = Think\getSchoolIdByUser();
+        }
         $data=$Task->pager($condition, $this->indexPageSize, $pagerShow)->order(['id'=>'desc'])->select();
         if($data) {
             $ClassList=D('class')->GetList('list');
@@ -37,7 +43,7 @@ class CameraController extends Controller {
             $data=D('camera')->getById($id);
             $data['sourceIds'] = $data['source_id'];
             $this->assign('data', $data);
-            
+
             $cameraData=D('camera_source_relation')->where(array('camera_id'=>$id))->select();
             $sourceIds = array();
             $classId   = null;

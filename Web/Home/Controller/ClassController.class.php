@@ -1,5 +1,6 @@
 <?php
 namespace Home\Controller;
+use Think;
 use Think\Controller;
 class ClassController extends Controller {
     private $indexPageSize = 20;
@@ -10,12 +11,21 @@ class ClassController extends Controller {
 
     public function index() {
         $Task=M('class');
-
+        
         // 筛选条件
         $condition=[];
+        $schoolInfos = $tmpSchoolInfos = Think\getSchoolByManager();
+        
+        if (count($tmpSchoolInfos) == 1) {
 
+            $condition['school_id'] = Think\getSchoolIdByUser();
+        }
         $data=$Task->pager($condition, $this->indexPageSize, $pagerShow)->order('`order` asc,id desc')->select();
-
+        
+        foreach ($data as $key => $value) {
+            $schoolId = $value['school_id'];
+            $data[$key]['school_name'] = $schoolInfos[$schoolId]['name'];
+        }
         $this->assign('data_list', $data);
         $this->assign('pager', $pagerShow);
 
@@ -24,10 +34,13 @@ class ClassController extends Controller {
 
     public function edit() {
         $id=I('get.id', 0);
+        //$schoolInfos=C('SCHOOL_INFO');
+        $schoolInfos = Think\getSchoolByManager();
         if($id) {
             $data=D('class')->getById($id);
             $this->assign('data', $data);
         }
+        $this->assign('schoolInfo', $schoolInfos);
         $this->display('edit');
     }
 

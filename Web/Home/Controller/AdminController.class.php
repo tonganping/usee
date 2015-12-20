@@ -1,6 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use THINK;
 class AdminController extends Controller {
     private $indexPageSize = 20;
 
@@ -34,6 +35,8 @@ class AdminController extends Controller {
     }
 
     public function add() {
+        $schoolInfos = Think\getSchoolByManager();
+        $this->assign('schoolInfo', $schoolInfos);
         $this->display('add');
     }
 
@@ -121,7 +124,7 @@ class AdminController extends Controller {
         $id || $this->ajaxReturn(null, 1, '#id 为空');
 
         $pwd=I('post.oldpwd', 0);
-        $pwd || $this->ajaxReturn(null, 1, '#旧密码为空');
+        //$pwd || $this->ajaxReturn(null, 1, '#旧密码为空');
         
         $code=I('post.code', 0);
         $code || $this->ajaxReturn(null, 1, '#密码为空');

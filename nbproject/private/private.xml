@@ -3,11 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/E:/usee/Common/Common/func.php</file>
             <file>file:/E:/usee/Web/Home/Controller/UserController.class.php</file>
-            <file>file:/E:/usee/Public/js/jq/form.js</file>
-            <file>file:/E:/usee/Web/Home/View/Index/index.html</file>
-            <file>file:/E:/usee/Public/js/oa.js</file>
-            <file>file:/E:/usee/Web/Home/View/User/changepwd.html</file>
+            <file>file:/E:/usee/Web/Home/View/Admin/edit.html</file>
+            <file>file:/E:/usee/Public/tpl/top_userinfo.html</file>
+            <file>file:/E:/usee/Web/Home/Controller/IndexController.class.php</file>
+            <file>file:/E:/usee/Web/Home/Controller/ClassController.class.php</file>
+            <file>file:/E:/usee/Web/Home/View/Admin/add.html</file>
+            <file>file:/E:/usee/Think/Common/functions.php</file>
+            <file>file:/E:/usee/Web/Home/Controller/AdminController.class.php</file>
+            <file>file:/E:/usee/Web/Home/View/Admin/changepwd.html</file>
         </group>
     </open-files>
 </project-private>

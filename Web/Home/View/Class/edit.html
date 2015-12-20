@@ -11,6 +11,19 @@
                 <td class="issue_td"><input class="name" type="text" name="name" value="{$data.name}" /></td>
             </tr>
             <tr>
+                <td width="80">学校</td>
+                <td>
+                    <select name="school_id">
+                        <option value="0">请选择</option>
+                        <volist name="schoolInfo" id="school">
+                            <option value="{$school.id}"<eq name="school.id" value="$data.school_id"> selected="selected"</eq>>{$school.name}</option>
+                        </volist>
+                    </select>
+                    
+                     
+            </td>
+            </tr>
+            <tr>
                 <td width="80">排序</td>
                 <td><input name="order" class="name" type="text" placeholder="" value="{$data.order}" /></td>
             </tr>

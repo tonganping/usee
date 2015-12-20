@@ -10,7 +10,8 @@
     <table class="data_list" width="100%">
         <tr>
             <th width="5%">ID</th>
-            <th>名称</th>
+            <th>班级名称</th>
+            <th>学校名称</th>
             <th width="10%">排序</th>
             <th width="15%">操作</th>
         </tr>
@@ -18,6 +19,7 @@
         <tr>
             <td>{$data.id}</td>
             <td>{$data.name}</td>
+            <td>{$data.school_name}</td>
             <td>{$data.order}</td>
             <td>
                 <a href="__INDEX__/Class/edit/id/{$data.id}">编辑</a>

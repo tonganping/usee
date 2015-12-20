@@ -24,6 +24,18 @@
                 <td><input name="url" class="name" type="text" value="{$data.url}" /></td>
             </tr>
             <tr>
+                <td>学校</td>
+                <td>
+                <select name="school_id">
+                        <option value="0">请选择</option>
+                        <volist name="schoolInfo" id="school">
+                            <option value="{$school.id}"<eq name="school.id" value="$data.school_id"> selected="selected"</eq>>{$school.name}</option>
+                        </volist>
+                    </select>
+            
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <a href="__INDEX__/Source/index" class="fr">返回</a>

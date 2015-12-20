@@ -1,6 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use THINK;
 class SourceController extends Controller {
     private $indexPageSize = 20;
 
@@ -32,6 +33,8 @@ class SourceController extends Controller {
             $data=D('class')->getById($id);
             $this->assign('data', $data);
         }
+        $schoolInfos = Think\getSchoolByManager();
+        $this->assign('schoolInfo', $schoolInfos);
         $this->display('add');
     }
     
@@ -41,6 +44,8 @@ class SourceController extends Controller {
             $data=D('source')->getById($id);
             $this->assign('data', $data);
         }
+        $schoolInfos = Think\getSchoolByManager();
+        $this->assign('schoolInfo', $schoolInfos);
         $this->display('edit');
     }
 

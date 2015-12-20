@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use THINK\Controller;
-
+use THINK;
 class MemberController extends Controller{
 	public function index(){
         if(!cookie('user_id')){
