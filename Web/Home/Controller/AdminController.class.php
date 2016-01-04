@@ -53,7 +53,9 @@ class AdminController extends Controller {
         $data['role_id'] || $this->ajaxReturn(null, 1, '角色未选!');
         
         $data || $this->ajaxReturn($data, 1, $Task->getError());
- 
+        if ($data['role_id'] == 1) {
+            $data['school_id'] = 0;
+        }
         $data['code'] = sha1($data['code'].'_80_80_');
         $Task->data($data);
         $result=$data['id']
