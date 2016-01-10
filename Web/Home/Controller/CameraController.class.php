@@ -77,7 +77,7 @@ class CameraController extends Controller {
         $data || $this->ajaxReturn($data, 1, $Task->getError());
 
         $data['id'] || $data['time_in']=NOW;
-        
+        $data['school_id'] = Think\getSchoolIdByUser();
         $sourceIds = I('post.sourceIds', 0);
         $classId = $data['class_id'];
         $sourceIds || $this->ajaxReturn($data, 1, '无效的资源ID !');

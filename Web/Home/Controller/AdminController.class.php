@@ -27,7 +27,8 @@ class AdminController extends Controller {
                 $d['role_name']=$Types[$d['role_id']];
             }
         }
-
+        $schoolInfos = Think\getSchoolByManager();
+        $this->assign('schoolInfo', $schoolInfos);
         $this->assign('data_list', $data);
         $this->assign('pager', $pagerShow);
 

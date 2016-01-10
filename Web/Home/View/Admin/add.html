@@ -15,16 +15,16 @@
                 <td class="issue_td"><input class="name" type="password" name="code" value="" /></td>
             </tr>
              
-            <tr>
+            <tr >
                 <td>用户类型</td>
                 <td style="text-align:left;">
-                    <div class="itemList">
+                    <div class="schoolTypeList">
                         <volist name="Think.config.ROLE_TYPES" id="U">
-                            <label><input class="radio" type="radio" name="role_id" value="{$key}" <eq name="key" value="$data.type"> checked="checked"</eq> />{$U}</label>
+                            <label><input class="radio" onclick="showSchoolList(this.value)" type="radio" name="role_id" value="{$key}" <eq name="key" value="$data.type"> checked="checked"</eq> />{$U}</label>
                         </volist></div>
                 </td>
-            </tr> 
-            <tr>
+            </tr>
+            <tr class="school_id_list">
                 <td width="80">学校</td>
                 <td>
                     <select name="school_id">
@@ -36,7 +36,8 @@
                     
                      
             </td>
-            </tr>
+            </tr>                
+  
             
             <tr>
                 <td></td>
@@ -51,6 +52,19 @@
 
 <load href="__JS__/jq/form.js" />
 <script type="text/javascript">
+    
+$(document).ready(function(){
+    $(".school_id_list").hide();
+    
+});
+    function showSchoolList(schoolType) {
+        var schoolType = schoolType;
+        if (schoolType == 1) {
+            $(".school_id_list").hide();
+        } else if (schoolType == 2) {
+            $(".school_id_list").show();
+        }
+    }
     PosterDo('Admin','addSave');
 </script>
 

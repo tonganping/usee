@@ -14,7 +14,13 @@ class SourceController extends Controller {
 
         // 筛选条件
         $condition=[];
+        $schoolInfos = $tmpSchoolInfos = Think\getSchoolByManager();
+        
+        if (count($tmpSchoolInfos) == 1) {
 
+            $condition['school_id'] = Think\getSchoolIdByUser();
+        }
+        
         $data=$Task->pager($condition, $this->indexPageSize, $pagerShow)->order('id desc')->select();
         $Types=C('CAMERA_TYPES');
         foreach($data as &$d) {
