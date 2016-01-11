@@ -1,0 +1,34 @@
+<include file="Public/tpl/left.html" />
+
+<div class="admin_right">
+    <include file="Public/tpl/top_userinfo.html" />
+
+    <div class="data_list_bt">学校管理</div>
+    <div class="issue_div">
+        <a href="__INDEX__/School/edit" class="btn" id="btn_edit">添加</a>
+    </div>
+    <table class="data_list" width="100%">
+        <tr>
+            <th width="5%">ID</th> 
+            <th>学校名称</th>
+            <th width="10%">排序</th>
+            <th width="15%">操作</th>
+        </tr>
+        <volist name="data_list" id="data">
+        <tr>
+            <td>{$data.id}</td> 
+            <td>{$data.name}</td>
+            <td>{$data.order}</td>
+            <td>
+                <a href="__INDEX__/School/edit/id/{$data.id}">编辑</a>
+                <a href="javascript:;" onclick="Deleter('School', {$data.id});">删除</a>
+            </td>
+        </tr>
+        </volist>
+    </table>
+    <div class="pages">{$pager}</div>
+</div>
+
+
+
+

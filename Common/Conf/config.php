@@ -55,6 +55,7 @@ return array(
 
     'MENU_INFO'    =>[
         '/Admin/index/' => ['role'=> [1,2], 'name'=> '帐号管理', 'ico0' => true],
+        '/School/index/' => ['role'=> [1], 'name'=> '学校管理'],
         '/User/index/' => ['role'=>  [1,2], 'name'=> '用户管理'],
         '/Class/index/' => ['role'=> [1,2], 'name'=> '班级管理'],
         '/Source/index/' => ['role'=>[1,2], 'name'=> '资源管理'],

@@ -2,7 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 use Think;
-class UserController extends Controller {
+class SchoolController extends Controller {
     private $indexPageSize = 20;
 
     public function _initialize() {
@@ -10,7 +10,7 @@ class UserController extends Controller {
     }
 
     public function index() {
-        $Task=M('user');
+        $Task=M('School');
 
         // 筛选条件
         $condition=[];
@@ -21,20 +21,20 @@ class UserController extends Controller {
             $condition['school_id'] = Think\getSchoolIdByUser();
         }
         
-        $data=$Task->pager($condition, $this->indexPageSize, $pagerShow)->order(['time_in'=>'desc'])->select();
+        $data=$Task->pager($condition, $this->indexPageSize, $pagerShow)->order(['id'=>'desc'])->select();
 
-        if($data) {
-            $Relation=C('USER_RELATIONSHIP');
-            $Types=C('USER_TYPES');
-            $Classes=D('class')->GetList('list');
-
-            foreach($data as &$d) {
-                $d['time_in_text']=\Think\FormatTime($d['time_in']);
-                $d['relation']=$Relation[$d['relation_type']];
-                $d['type_name']=$Types[$d['type']];
-                $d['class_name']=$Classes[$d['class_id']];
-            }
-        }
+//        if($data) {
+//            $Relation=C('USER_RELATIONSHIP');
+//            $Types=C('USER_TYPES');
+//            $Classes=D('class')->GetList('list');
+//
+//            foreach($data as &$d) {
+//                $d['time_in_text']=\Think\FormatTime($d['time_in']);
+//                $d['relation']=$Relation[$d['relation_type']];
+//                $d['type_name']=$Types[$d['type']];
+//                $d['class_name']=$Classes[$d['class_id']];
+//            }
+//        }
 
         $this->assign('data_list', $data);
         $this->assign('pager', $pagerShow);
@@ -55,20 +55,15 @@ class UserController extends Controller {
     public function edit() {
         $id=I('get.id', 0);
         if($id) {
-            $data=D('user')->getById($id);
-            $data['time_in_text']=\Think\FormatTime($data['time_in']);
+            $data=D('school')->getById($id);
+            //$data['time_in_text']=\Think\FormatTime($data['time_in']);
             $this->assign('data', $data);
-        }
-
-        // 班级
-        $this->assign('class_list', D('class')->GetList());
-        $this->assign('relation', C('USER_RELATIONSHIP'));
-
+        }  
         $this->display('edit');
     }
 
     public function editSave() {
-        $Task=D('user');
+        $Task=D('school');
         $data=$Task->create();
 
         $data || $this->ajaxReturn($data, 1, $Task->getError());
@@ -85,7 +80,7 @@ class UserController extends Controller {
         $id=I('get.id', 0);
         $id || $this->ajaxReturn(null, 1, '#id 为空');
 
-        $result=D('user')->delete($id);
+        $result=D('school')->delete($id);
 
         $this->ajaxReturn(['data'=>$result, 'code'=>$result ? 0 : 1, 'msg'=>'']);
     }
