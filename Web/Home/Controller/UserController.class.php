@@ -13,16 +13,28 @@ class UserController extends Controller {
         $Task=M('user');
 
         // 筛选条件
-        $condition=[];
+        $condition='';
         $schoolInfos = $tmpSchoolInfos = Think\getSchoolByManager();
         
         if (count($tmpSchoolInfos) == 1) {
 
-            $condition['school_id'] = Think\getSchoolIdByUser();
+            $condition .= ' AND school_id =' .(Think\getSchoolIdByUser());
         }
+        $pageSize = 20;
+        $page = isset($_REQUEST['p']) ? max(1,$_REQUEST['p']) : 1;
+        $skip = ($page - 1) * $pageSize;
+        $model = new \Think\Model();
+        $sql = "SELECT u.*,c.name as class_Name from tbl_user u,tbl_class  c where u.class_id = c.id {$condition} limit {$skip} ,{$pageSize}";
+        $data = $model->query($sql);
+        $sql2 = "SELECT count(*) as num from tbl_user u,tbl_class  c where u.class_id = c.id {$condition}";
+        $data2 = $model->query($sql2);
+        $Page = new \Think\Page($data2[0]['num'], 20);
+        $Page->setConfig('prev', '');
+        $Page->setConfig('next', '');
+        $pagerShow=$Page->show();
+        //var_dump($info,  $this->indexPageSize,$pagerShow);die;
+        //$data=$Task->alias('u')->join('tbl_class c ON u.class_id=c.id')->pager($condition, $this->indexPageSize, $pagerShow)->order(['time_in'=>'desc'])->select();
         
-        $data=$Task->pager($condition, $this->indexPageSize, $pagerShow)->order(['time_in'=>'desc'])->select();
-
         if($data) {
             $Relation=C('USER_RELATIONSHIP');
             $Types=C('USER_TYPES');
@@ -32,7 +44,7 @@ class UserController extends Controller {
                 $d['time_in_text']=\Think\FormatTime($d['time_in']);
                 $d['relation']=$Relation[$d['relation_type']];
                 $d['type_name']=$Types[$d['type']];
-                $d['class_name']=$Classes[$d['class_id']];
+              //  $d['class_name']=$Classes[$d['class_id']];
             }
         }
 
