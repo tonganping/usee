@@ -1,0 +1,55 @@
+
+<include file="Public/tpl/left.html" />
+<div class="admin_right">
+    <include file="Public/tpl/top_userinfo.html" />
+    <div class="change_password">编辑采集端配置信息</div>
+    <form id="editForm" action="__INDEX__/Collect/configEditSave" method="POST">
+        <table cellspacing="0" cellpadding="0" class="issue_tab">
+            <tr>
+                <td width="80">ID</td>
+                <td class="issue_td">{$data.id}</td>
+            </tr>
+            <tr>
+                <td>渠道号</td>
+                <td class="issue_td"><input class="name" type="text" name="account" value="{$data.account}" /></td>
+            </tr>
+            <tr>
+                <td>摄像头地址</td>
+                <td class="issue_td"><input class="name" type="text" name="source" value="{$data.source}" /></td>
+            </tr>
+            <tr>
+                <td>目标地址</td>
+                <td class="issue_td"><input class="name" type="text" name="target" value="{$data.target}" /></td>
+            </tr>
+            <tr>
+                <td>名称</td>
+                <td class="issue_td"><input class="name" type="text" name="name" value="{$data.name}" /></td>
+            </tr>
+            <tr>
+                <td>参数</td>
+                <td class="issue_td"><input class="name" type="text" name="args" value="{$data.args}" /></td>
+            </tr>
+            <tr>
+                <td>创建时间</td>
+                <td class="issue_td">{$data.create_time}</td>
+            </tr>
+            <tr>
+                <td>最后更新时间</td>
+                <td class="issue_td">{$data.update_time}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    <a href="__INDEX__/Collect/configList" class="btn fr">返回</a>
+                    <a href="javascript:void(0)" class="btn fr" id="btn_submit">确定</a>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="id" value="{$data.id}" />
+    </form>
+</div>
+
+<load href="__JS__/jq/form.js" />
+<script type="text/javascript">
+    PosterDoUrl('Collect','configEditSave');
+</script>
+

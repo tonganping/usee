@@ -1,0 +1,45 @@
+<include file="Public/tpl/left.html" />
+
+<div class="admin_right">
+    <include file="Public/tpl/top_userinfo.html" />
+
+    <div class="data_list_bt">采集端账户信息列表</div>
+    <div class="issue_div">
+        <a href="__INDEX__/Collect/accountAdd" class="btn" id="btn_edit">添加</a>
+    </div>
+    <form>
+    <table class="data_list" width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <th colspan="2">渠道号</th>
+            <th colspan="5">
+                <input type="text" name="account" value="{$account}" />
+                <input type="submit" value="查询" />
+            </th>
+        </tr>
+        <tr>
+            <th width="10%">ID</th>
+            <th width="10%">渠道号</th>
+            <th width="15%">密码</th>
+            <th width="15%">名称</th>
+            <th width="20%">创建时间</th>
+            <th width="20%">最后更新时间</th>
+            <th width="10%">操作</th>
+        </tr>
+        <volist name="data_list" id="data">
+        <tr>
+            <td>{$data.id}</td>
+            <td>{$data.account}</td>
+            <td>{$data.password}</td>
+            <td>{$data.name}</td>
+            <td>{$data.create_time}</td>
+            <td>{$data.update_time}</td>
+            <td>
+                <a href="__INDEX__/Collect/accountEdit/id/{$data.id}">编辑</a>
+                <a href="javascript:;" onclick="DeleterUrl('Collect', 'accountDel', {$data.id});">删除</a>
+            </td>
+        </tr>
+        </volist>
+    </table>
+    </form>
+    <div class="pages">{$pager}</div>
+</div>

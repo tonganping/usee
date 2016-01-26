@@ -66,3 +66,34 @@ function Deleter(act, id) {
         }
     });
 }
+
+function PosterDoUrl(act,todo) {
+    $('#btn_submit').click(function () {
+        var dataString = $('#editForm').formSerialize();
+
+        $.post('/index.php/' + act + '/'+todo, dataString, function(d) {
+            if(d.code =='0') {
+                alert('保存成功');
+                Go(d.data.url);
+            } else {
+                alert(d.msg);
+            }
+        });
+    });
+}
+
+function DeleterUrl(controller,action,id) {
+    if(!confirm('删除操作，请确认')) {
+        return false;
+    }
+
+    var url = '/index.php/' + controller + '/' + action + '/id/' + id;
+    $.get(url, function(d) {console.log(d);
+        if(d.code=='0') {
+            alert('删除成功');
+            Go(d.data.url);
+        } else {
+            alert(d.msg);
+        }
+    });
+}

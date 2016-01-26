@@ -60,6 +60,8 @@ return array(
         '/Class/index/' => ['role'=> [1,2], 'name'=> '班级管理'],
         '/Source/index/' => ['role'=>[1,2], 'name'=> '资源管理'],
         '/Camera/index/' => ['role'=>[1,2], 'name'=> '班级资源管理'],
+        '/Collect/accountList/' => ['role'=>[1,2], 'name'=> '采集端帐号信息管理'],
+        '/Collect/ConfigList/' => ['role'=>[1,2], 'name'=> '采集端配置信息管理'],
     ],
     
     'CAMERA_TYPES'  =>[
@@ -71,12 +73,6 @@ return array(
         '1' =>'超级管理员',
         '2' =>'幼儿园管理员'
     ],
-    
-    'SCHOOL_INFO'  =>[
-        '1' => ['id' => 1, 'name'=>'春天幼儿园'],
-        '2' => ['id' => 2, 'name'=>'加洲幼儿园'],
-    ],
-    
 
     'APP_ID'=>'wx587fbf4f84f932fb',
     'SECRET'=>'f36f72e122bca218114e740ed6a04509'

@@ -148,3 +148,121 @@ function FormatTime($t=NOW) {
 
     return date($format, $t);
 }
+
+/**
+ * 格式化时间, 格式Y-m-d H:i:s
+ *
+ * @param int $t
+ * @return bool|string
+ */
+function FormatTimeYMDHIS($t=NOW) {
+    if(!$t) {
+        return '';
+    }
+    $format='Y-m-d H:i:s';
+
+    return date($format, $t);
+}
+
+/**
+ * 判断是否为空
+ *
+ * @param string $validata
+ * @return bool|string
+ */
+function isEmpty($validata = '') {
+    $validata = trim($validata);
+    return empty($validata);
+}
+
+/**
+ * 检查是否为字符串.
+ * 
+ * @param string $validate    待验证参数.
+ * @param array  $lengthScope 字符串最大长度和最小长度.
+ * 
+ * @return boolean
+ */
+function checkStringInScope($validate, $lengthScope = array())
+{
+    $validate = trim($validate);
+    if (!is_string($validate) && !is_numeric($validate)) {
+        return false;
+    }
+
+    if (isset($lengthScope['min']) && strlen($validate) < $lengthScope['min']) {
+        return false;
+    }
+    if (isset($lengthScope['max']) && strlen($validate) > $lengthScope['max']) {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * 验证参数是否是合乎规范的整数.可选：取值范围.
+ * 
+ * @param integer $validate 待验证的参数.
+ * @param array   $scope    可选：取值范围.
+ * 
+ * @return boolean
+ */
+function checkIntInScope($validate, array $scope = array())
+{
+    $validate = trim($validate);
+    if (!ctype_digit((string)$validate)) {
+        return false;
+    }
+
+    if (isset($scope['max']) &&( !is_int($scope['max']) || $validate > $scope['max'])) {
+        return false;
+    }
+    if (isset($scope['min']) &&( !is_int($scope['min']) || $validate < $scope['min'])) {
+        return false;
+    }
+    // 不超过mysql int类型取值范围.
+    if ($validate > 2147483647) {
+        return false;
+    }
+    
+    return true;
+}
+
+/**
+ * Generate response.
+ *
+ * @param array  $responseBody Response body.
+ * @param mixed  $data         Data.
+ *
+ * @return array
+ */
+function genResponseJson($responseBody, $data = null)
+{
+    $return = array_merge($responseBody,array('data' => $data));
+    exit(json_encode($return));
+}
+
+/**
+ * 校验token.
+ *
+ * @param array  $data  请求参数.
+ * @param string $key   加密KEY.
+ * @param string $token 校验token. 
+ *
+ * @return array
+ */
+function CheckToken($data, $key, $token)
+{
+    $key = trim($key);
+    if (!is_array($data) || empty($data) || empty($key)) {
+        return '';
+    }
+    ksort($data);
+    $params = implode("", $data);
+    $needToken = md5($params.$key);
+    if ($needToken === $token) {
+        return true;
+    } else {
+        return false;
+    }
+}
